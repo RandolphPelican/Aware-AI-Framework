@@ -28,7 +28,7 @@ class CodebookManager:
         if key in self.codebooks:
             del self.codebooks[key]
 
-    def reset(self):
+    def clear(self):
         """
         Clear all codebooks.
         """

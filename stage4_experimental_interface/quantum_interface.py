@@ -1,28 +1,35 @@
 # stage4_experimental_interface/quantum_interface.py
 
 """
-Quantum Experimental Interface Module
-Provides a testing interface for experimental quantum-inspired AI routines.
+Quantum Interface Module
+Provides experimental hooks for interfacing AI agents with quantum-like state simulations.
 """
 
 class QuantumInterface:
     def __init__(self):
-        self.state = {}
+        self.quantum_state = {}
 
-    def measure(self, key):
+    def set_state(self, key, value):
         """
-        Simulate a quantum measurement for a given key.
+        Set a quantum state variable.
         """
-        return self.state.get(key, None)
+        self.quantum_state[key] = value
 
-    def update(self, key, value):
+    def get_state(self, key):
         """
-        Update the internal state for a given key.
+        Retrieve a quantum state variable.
         """
-        self.state[key] = value
+        return self.quantum_state.get(key, None)
 
     def reset(self):
         """
-        Reset the internal state.
+        Clear all quantum state variables.
         """
-        self.state = {}
+        self.quantum_state = {}
+
+    def apply_unitary(self, func):
+        """
+        Apply a unitary transformation function to all state variables.
+        """
+        for k in self.quantum_state:
+            self.quantum_state[k] = func(self.quantum_state[k])

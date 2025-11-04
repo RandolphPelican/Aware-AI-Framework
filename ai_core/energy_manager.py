@@ -1,38 +1,33 @@
 # ai_core/energy_manager.py
 
 """
-Energy Manager Module
-Handles computational resource allocation and energy-subsidy management.
+Energy-Subsidy Manager Module
+Manages computational resource allocation and energy distribution among modules.
 """
 
 class EnergyManager:
-    def __init__(self):
-        self.resources = {}
-        self.subsidies = {}
+    def __init__(self, initial_energy=100.0):
+        self.energy = initial_energy
 
-    def allocate(self, module_name, amount):
+    def allocate(self, amount):
         """
-        Allocate energy/resource units to a module.
+        Allocate energy to a process or module.
         """
-        self.resources[module_name] = self.resources.get(module_name, 0) + amount
+        if amount <= self.energy:
+            self.energy -= amount
+            return amount
+        allocated = self.energy
+        self.energy = 0
+        return allocated
 
-    def consume(self, module_name, amount):
+    def replenish(self, amount):
         """
-        Consume energy/resource units from a module.
+        Replenish available energy.
         """
-        if module_name in self.resources:
-            self.resources[module_name] = max(0, self.resources[module_name] - amount)
+        self.energy += amount
 
-    def apply_subsidy(self, module_name, amount):
+    def get_state(self):
         """
-        Apply an energy subsidy to a module.
+        Return the current energy state.
         """
-        self.subsidies[module_name] = self.subsidies.get(module_name, 0) + amount
-        self.allocate(module_name, amount)
-
-    def reset(self):
-        """
-        Clear all resource and subsidy records.
-        """
-        self.resources = {}
-        self.subsidies = {}
+        return self.energy

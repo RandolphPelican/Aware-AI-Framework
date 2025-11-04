@@ -1,31 +1,23 @@
-k# utils/helpers.py
+# utils/helpers.py
 
 """
-Utility Helper Functions
-Contains shared helper functions used across all stages of the Aware AI Framework.
+Helper functions for the Aware AI Framework.
 """
 
-def clamp(value, min_value, max_value):
+def normalize_frame(frame):
     """
-    Clamp a numeric value between min_value and max_value.
+    Normalize input frame values to range [0, 1].
     """
-    return max(min_value, min(value, max_value))
+    min_val = min(frame)
+    max_val = max(frame)
+    if max_val - min_val == 0:
+        return frame
+    return [(x - min_val) / (max_val - min_val) for x in frame]
 
-def normalize_vector(vector):
+def moving_average(buffer):
     """
-    Normalize a numeric vector to unit length.
+    Compute the simple moving average of a list of numbers.
     """
-    magnitude = sum(x**2 for x in vector) ** 0.5
-    if magnitude == 0:
-        return vector
-    return [x / magnitude for x in vector]
-
-def rolling_average(buffer, new_value, max_length=5):
-    """
-    Maintain a rolling average of the last `max_length` values.
-    """
-    buffer.append(new_value)
-    if len(buffer) > max_length:
-        buffer.pop(0)
+    if not buffer:
+        return None
     return sum(buffer) / len(buffer)
-

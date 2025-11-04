@@ -2,42 +2,34 @@
 
 """
 Codebook Manager Module
-Handles storage, retrieval, and consolidation of patterns detected by demodulators.
+Handles storage, retrieval, and updating of cross-modal codebooks.
 """
 
 class CodebookManager:
     def __init__(self):
-        self.codebook = {}
+        self.codebooks = {}
 
-    def add_pattern(self, key, pattern):
+    def add_entry(self, key, value):
         """
-        Add a pattern to the codebook under a specific key.
+        Add or update a codebook entry.
         """
-        if key not in self.codebook:
-            self.codebook[key] = []
-        self.codebook[key].append(pattern)
+        self.codebooks[key] = value
 
-    def get_patterns(self, key):
+    def get_entry(self, key):
         """
-        Retrieve all patterns associated with a key.
+        Retrieve a codebook entry.
         """
-        return self.codebook.get(key, [])
+        return self.codebooks.get(key, None)
 
-    def consolidate(self):
+    def remove_entry(self, key):
         """
-        Merge patterns into higher-order representations.
-        Simple example: average numeric patterns if possible.
+        Remove a codebook entry if it exists.
         """
-        consolidated = {}
-        for key, patterns in self.codebook.items():
-            if patterns and all(isinstance(p, (int, float)) for p in patterns):
-                consolidated[key] = sum(patterns) / len(patterns)
-            else:
-                consolidated[key] = patterns
-        return consolidated
+        if key in self.codebooks:
+            del self.codebooks[key]
 
     def reset(self):
         """
-        Clear the entire codebook.
+        Clear all codebooks.
         """
-        self.codebook = {}
+        self.codebooks = {}

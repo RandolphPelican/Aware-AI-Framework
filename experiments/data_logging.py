@@ -2,34 +2,34 @@
 
 """
 Data Logging Module
-Handles structured logging of experimental AI data for analysis and debugging.
+Handles recording, storage, and retrieval of experimental data from various AI modules.
 """
 
-import json
 import os
+import json
+from datetime import datetime
 
 class DataLogger:
-    def __init__(self, log_file="experiment_log.json"):
-        self.log_file = log_file
-        self.data = []
+    def __init__(self, log_dir="logs"):
+        self.log_dir = log_dir
+        os.makedirs(self.log_dir, exist_ok=True)
 
-    def log(self, entry):
+    def log(self, module_name, data):
         """
-        Add a new entry to the log.
+        Log data from a module into a timestamped JSON file.
         """
-        self.data.append(entry)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{self.log_dir}/{module_name}_{timestamp}.json"
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=4)
 
-    def save(self):
+    def read_logs(self, module_name):
         """
-        Save all logged entries to the file in JSON format.
+        Read all logs associated with a given module.
         """
-        with open(self.log_file, "w") as f:
-            json.dump(self.data, f, indent=4)
-
-    def reset(self):
-        """
-        Clear the current log data.
-        """
-        self.data = []
-        if os.path.exists(self.log_file):
-            os.remove(self.log_file)
+        logs = []
+        for file in os.listdir(self.log_dir):
+            if file.startswith(module_name) and file.endswith(".json"):
+                with open(os.path.join(self.log_dir, file), "r") as f:
+                    logs.append(json.load(f))
+        return logs

@@ -1,33 +1,31 @@
-# utils/helpers.py
+k# utils/helpers.py
 
 """
-Utility Helpers Module
-Provides general-purpose helper functions for the Aware AI Framework.
+Utility Helper Functions
+Contains shared helper functions used across all stages of the Aware AI Framework.
 """
 
 def clamp(value, min_value, max_value):
     """
     Clamp a numeric value between min_value and max_value.
     """
-    return max(min_value, min(max_value, value))
+    return max(min_value, min(value, max_value))
 
-def flatten_list(nested_list):
+def normalize_vector(vector):
     """
-    Flatten a nested list into a single list.
+    Normalize a numeric vector to unit length.
     """
-    flat = []
-    for item in nested_list:
-        if isinstance(item, list):
-            flat.extend(flatten_list(item))
-        else:
-            flat.append(item)
-    return flat
+    magnitude = sum(x**2 for x in vector) ** 0.5
+    if magnitude == 0:
+        return vector
+    return [x / magnitude for x in vector]
 
-def average(values):
+def rolling_average(buffer, new_value, max_length=5):
     """
-    Compute the average of a list of numbers.
-    Returns None if the list is empty.
+    Maintain a rolling average of the last `max_length` values.
     """
-    if not values:
-        return None
-    return sum(values) / len(values)
+    buffer.append(new_value)
+    if len(buffer) > max_length:
+        buffer.pop(0)
+    return sum(buffer) / len(buffer)
+

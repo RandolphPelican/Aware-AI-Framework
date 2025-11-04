@@ -1,8 +1,8 @@
-# stage3_recursive_closure/closure_loop.py
+k# stage3_recursive_closure/closure_loop.py
 
 """
 Recursive Closure Module
-Implements self-referential awareness loops for nested AI agents.
+Implements self-referential feedback loops for nested-mind awareness simulation.
 """
 
 class RecursiveClosure:
@@ -10,24 +10,26 @@ class RecursiveClosure:
         self.depth = depth
         self.state_stack = []
 
-    def push_state(self, state):
+    def update(self, input_state):
         """
-        Add a new state to the stack, maintaining the depth limit.
+        Push a new state into the stack and maintain closure depth.
         """
-        self.state_stack.append(state)
+        self.state_stack.append(input_state)
         if len(self.state_stack) > self.depth:
             self.state_stack.pop(0)
 
-    def get_current_state(self):
+    def get_state(self):
         """
-        Return the most recent state.
+        Return the current aggregated state of the recursive loop.
         """
         if not self.state_stack:
             return None
+        # Simple aggregation: return the most recent state
         return self.state_stack[-1]
 
     def reset(self):
         """
-        Clear all stored states.
+        Clear all states in the recursive closure loop.
         """
         self.state_stack = []
+

@@ -2,34 +2,36 @@
 
 """
 Data Logging Module
-Handles recording, storage, and retrieval of experimental data from various AI modules.
+Handles structured logging of system states and events for analysis.
 """
 
-import os
 import json
 from datetime import datetime
 
 class DataLogger:
-    def __init__(self, log_dir="logs"):
-        self.log_dir = log_dir
-        os.makedirs(self.log_dir, exist_ok=True)
+    def __init__(self, filename="log.json"):
+        self.filename = filename
+        self.entries = []
 
-    def log(self, module_name, data):
+    def log(self, data):
         """
-        Log data from a module into a timestamped JSON file.
+        Log a new data entry with timestamp.
         """
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{self.log_dir}/{module_name}_{timestamp}.json"
-        with open(filename, "w") as f:
-            json.dump(data, f, indent=4)
+        entry = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "data": data
+        }
+        self.entries.append(entry)
 
-    def read_logs(self, module_name):
+    def save(self):
         """
-        Read all logs associated with a given module.
+        Save all logged entries to a JSON file.
         """
-        logs = []
-        for file in os.listdir(self.log_dir):
-            if file.startswith(module_name) and file.endswith(".json"):
-                with open(os.path.join(self.log_dir, file), "r") as f:
-                    logs.append(json.load(f))
-        return logs
+        with open(self.filename, "w") as f:
+            json.dump(self.entries, f, indent=2)
+
+    def reset(self):
+        """
+        Clear all current log entries.
+        """
+        self.entries = []

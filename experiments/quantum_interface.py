@@ -1,29 +1,34 @@
-# experiments/quantum_interface.py
+k# experiments/quantum_interface.py
 
 """
 Quantum Interface Module
-Provides an experimental interface for interacting with quantum-inspired AI mechanisms.
+Simulates an interface between AI modules and experimental quantum subsystems.
 """
 
+import random
+
 class QuantumInterface:
-    def __init__(self):
-        self.state = {}
+    def __init__(self, qubits=4):
+        self.qubits = qubits
+        self.state = [0] * qubits
 
-    def set_state(self, key, value):
+    def measure(self):
         """
-        Set a quantum-like state variable.
+        Simulate a quantum measurement collapsing the state of each qubit.
         """
-        self.state[key] = value
-
-    def get_state(self, key):
-        """
-        Retrieve a quantum-like state variable.
-        Returns None if the key does not exist.
-        """
-        return self.state.get(key, None)
+        self.state = [random.randint(0, 1) for _ in range(self.qubits)]
+        return self.state
 
     def reset(self):
         """
-        Clear all state variables.
+        Reset all qubits to 0.
         """
-        self.state.clear()
+        self.state = [0] * self.qubits
+
+    def apply_gate(self, qubit_index, gate):
+        """
+        Apply a simple gate to a qubit. Only X-gate supported for now (bit flip).
+        """
+        if gate == "X" and 0 <= qubit_index < self.qubits:
+            self.state[qubit_index] ^= 1
+

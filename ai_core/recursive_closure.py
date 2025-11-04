@@ -2,29 +2,37 @@
 
 """
 Recursive Closure Module
-Enables self-referential loops and nested-awareness mechanisms.
+Implements self-referential loops for nested awareness and state propagation.
 """
 
 class RecursiveClosure:
     def __init__(self):
-        self.loop_state = []
+        self.state_stack = []
 
-    def update(self, state):
+    def push_state(self, state):
         """
-        Add a new state to the closure loop.
+        Add a new state to the stack.
         """
-        self.loop_state.append(state)
+        self.state_stack.append(state)
 
-    def get_state(self):
+    def pop_state(self):
         """
-        Return the current looped state.
+        Remove and return the latest state.
         """
-        if not self.loop_state:
-            return None
-        return self.loop_state[-1]
+        if self.state_stack:
+            return self.state_stack.pop()
+        return None
+
+    def get_current_state(self):
+        """
+        Return the current top state without removing it.
+        """
+        if self.state_stack:
+            return self.state_stack[-1]
+        return None
 
     def reset(self):
         """
-        Clear the closure loop state.
+        Clear all states.
         """
-        self.loop_state = []
+        self.state_stack = []

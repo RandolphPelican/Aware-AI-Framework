@@ -1,0 +1,6 @@
+# Core dependencies for Aware-AI-Framework
+numpy
+scipy
+pandas
+matplotlib
+pytest

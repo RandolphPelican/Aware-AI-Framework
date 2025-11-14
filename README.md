@@ -1,55 +1,83 @@
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 # Aware-AI-Framework
 
 **Author:** randolphpelican  
-**License:** MIT  
+**License:** MIT
 
 ## Overview
-The Aware-AI-Framework is an experimental platform designed to explore synthetic consciousness architectures as testbeds for nested-mind physics. It provides a modular structure for developing AI agents capable of federated sensory processing, energy-subsidized computation, recursive closure, and codebook consolidation.
+The **Aware-AI-Framework** is an experimental platform for prototyping synthetic-consciousness architectures and nested-mind physics. It provides modular stages for federated sensory processing, energy-aware computation, codebook consolidation, and recursive closure to experiment with proto-awareness behaviours.
 
-## Features
-- **Federated Demodulators:** Independent modules for audio, vision, and temporal inputs.  
-- **Energy-Subsidy Manager:** Dynamically allocates computational resources based on update costs.  
-- **Codebook Consolidation:** Merges local subsystems into coherent higher-order representations.  
-- **Recursive Closure Architecture:** Enables self-referential loops to simulate proto-awareness.  
+> Warning: experimental research code. Not production-ready. Use for research, simulation, and educational purposes only.
 
-## Getting Started
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/randolphpelican/Aware-AI-Framework.git
-Navigate to the project folder:
+## Key Features
+- **Federated Demodulators** — independent modules for audio, vision, and temporal inputs.
+- **Energy-Subsidy Manager** — dynamically allocates computation based on cost/benefit.
+- **Codebook Consolidation** — merges local subsystem representations into higher-order codebooks.
+- **Recursive Closure Architecture** — supports self-referential loops for proto-awareness experiments.
+- **Modular Stages** — clearly separated stages to compose experiments and swap implementations.
 
-bash
-Copy code
+## Repo layout
+```
+stage1_demodulators/          # demodulator implementations (audio, vision, temporal)
+stage2_codebook/              # codebook management & consolidation
+stage3_recursive_closure/     # recursive self-reference and system unification
+stage4_experimental_interface/# I/O and adaptive runtime experiments
+ai_core/                      # shared base classes, energy manager, and message bus
+utils/                        # logging, math helpers, config tools
+experiments/                  # prebuilt test configurations and simulations
+tests/                        # validation scripts and regression tests
+docs/                         # documentation, diagrams, and papers
+```
+
+## Installation
+```bash
+git clone https://github.com/randolphpelican/Aware-AI-Framework.git
 cd Aware-AI-Framework
-Explore the folder structure and modules:
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-stage1_demodulators/ — individual demodulator implementations
+## Running a Basic Experiment
+```bash
+python experiments/basic_awareness_test.py
+```
 
-stage2_codebook/ — codebook management and consolidation
+## Contributing
+Pull requests are welcome! Focus on clarity, modularity, and reproducibility. Include documentation for new modules and seed data for reproducible runs.
 
-stage3_recursive_closure/ — recursive closure loops
+## License
+MIT © randolphpelican
+## Experiments
 
-stage4_experimental_interface/ — AI ↔ quantum interface modules
+To run prebuilt experiments:
 
-ai_core/ — core AI functions for all stages
+```bash
+# Activate your virtual environment first
+source venv/bin/activate
 
-experiments/ — experimental testbed scripts
+# Run the basic demo
+python -m experiments.basic_awareness_test
 
-utils/ — helper functions
+# Run the template experiment
+python -m experiments.experiment_template
+```
 
-tests/ — basic unit tests
+### Adding New Experiments
 
-Contributing
-Contributions are welcome. Please submit pull requests with clear explanations and ensure compatibility with the modular structure.
+1. Create a new `.py` file in `experiments/`.
+2. Import stage classes (`BaseDemodulator`, `CodebookManager`, `ClosureController`) and `log` from `utils.helpers`.
+3. Follow the `experiment_template.py` structure.
+4. Add logging for all major steps.
+5. Ensure reproducibility with seed data if needed.
+## Documentation
 
-License
-See LICENSE for details.
+Diagrams, detailed explanations, and papers are stored in the `docs/` folder.  
+Add markdown or PDF files as needed. Example:
 
-Copy code
-
-
-
-
-
-
-
+```
+docs/architecture_overview.pdf
+docs/stage_flow_diagram.md
+```
